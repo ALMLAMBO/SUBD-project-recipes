@@ -341,3 +341,4 @@ healthchecksdb
 
 SslCert
 SslCertificatePaths.cs
+/RecipesSite/SslCertificatesPaths.cs
