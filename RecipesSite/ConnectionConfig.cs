@@ -14,7 +14,10 @@ namespace RecipesSite {
 				UserID = "root",
 				Password = "}ferrari{",
 				Database = "recipessite",
-				SslMode = MySqlSslMode.None
+				SslCa = SslCertificatesPaths.ServerCaFile,
+				SslCert = SslCertificatesPaths.ClientCertFile,
+				SslKey = SslCertificatesPaths.ClientKeyFile,
+				SslMode = MySqlSslMode.Required
 			};
 		}
 
