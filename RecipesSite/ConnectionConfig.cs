@@ -10,14 +10,14 @@ namespace RecipesSite {
 
 		public ConnectionConfig() {
 			csb = new MySqlConnectionStringBuilder() {
-				Server = "35.238.96.185",
+				Server = "35.232.190.49",
 				UserID = "root",
-				Password = "}ferrari{",
+				Password = "agent007",
 				Database = "recipessite",
-				SslCa = SslCertificatesPaths.ServerCaFile,
-				SslCert = SslCertificatesPaths.ClientCertFile,
-				SslKey = SslCertificatesPaths.ClientKeyFile,
-				SslMode = MySqlSslMode.Required
+				//SslCa = SslCertificatesPaths.ServerCaFile,
+				//SslCert = SslCertificatesPaths.ClientCertFile,
+				//SslKey = SslCertificatesPaths.ClientKeyFile,
+				//SslMode = MySqlSslMode.Required
 			};
 		}
 
