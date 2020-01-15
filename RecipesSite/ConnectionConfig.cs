@@ -36,5 +36,9 @@ namespace RecipesSite {
 
 			return version;
 		}
+
+		public string GetConnectionString() {
+			return csb.ConnectionString;
+		}
 	}
 }
