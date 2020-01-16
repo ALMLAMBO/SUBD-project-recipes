@@ -37,6 +37,10 @@ namespace RecipesSite {
 			return version;
 		}
 
+		public MySqlConnection GetMySqlConnection() {
+			return new MySqlConnection(GetConnectionString());
+		}
+
 		public string GetConnectionString() {
 			return csb.ConnectionString;
 		}
