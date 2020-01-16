@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
@@ -25,6 +26,16 @@ namespace RecipesSite {
 			services.AddRazorPages();
 			services.AddServerSideBlazor();
 			services.AddSingleton<WeatherForecastService>();
+
+			if(!services.Any(x => x.ServiceType == typeof(HttpClient))) {
+				services.AddScoped<HttpClient>(s => {
+					var uriHelp = s.GetRequiredService<NavigationManager>();
+
+					return new HttpClient() {
+						BaseAddress = new Uri(uriHelp.BaseUri)
+					};
+				});
+			}
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
