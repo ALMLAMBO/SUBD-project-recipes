@@ -1,13 +1,28 @@
-﻿using MySql.Data.MySqlClient;
-using RecipesSite.Models.Ingredient;
-using RecipesSite.Models.Recipe;
-using RecipesSite.Services.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Text;
+using System.Collections.Generic;
+using MySql.Data.MySqlClient;
+using RecipesSite.Models.Recipe;
+using RecipesSite.Models.Comment;
+using RecipesSite.Models.Ingredient;
+using RecipesSite.Services.Interfaces;
+using RecipesSite.CommonModels.BindingModels.Recipes;
 
 namespace RecipesSite.Services {
 	public class RecipeService : IRecipeInterface {
+
+		/// <summary>
+		/// Adds a recipe to the database
+		/// </summary>
+		/// <param name="recipe">Recipe to add</param>
+		public void AddRecipe(AddRecipeBindingModel recipe) {
+			
+		}
+
+		/// <summary>
+		/// Delete a recipe from database and all comments and ingredients
+		/// </summary>
+		/// <param name="id">Id of the recipe</param>
 		public void DeleteRecipe(int id) {
 			ConnectionConfig connCof = new ConnectionConfig();
 			MySqlConnection conn = connCof.GetMySqlConnection();
@@ -38,24 +53,98 @@ namespace RecipesSite.Services {
 			}
 		}
 
-		public List<Ingredient> GetAllIngredientsForRecipe(int id) {
-			throw new NotImplementedException();
+		/// <summary>
+		/// Gets all comments for a recipe
+		/// </summary>
+		/// <param name="id">Id of the recipe</param>
+		/// <returns>List of all comments</returns>
+		public List<Comment> GetAllCommentsForRecipe(int id) {
+			List<Comment> comments = new List<Comment>();
+
+			ConnectionConfig connCof = new ConnectionConfig();
+			MySqlConnection conn = connCof.GetMySqlConnection();
+			MySqlCommand command = new MySqlCommand();
+			command.Connection = conn;
+			command.CommandText = "select c.Content from RecipeComments rc " +
+				"left join Comments c on c.Id = rc.CommentId where rc.RecipeId = @id";
+
+			command.Parameters.AddWithValue("@id", id);
+			MySqlDataReader reader = command.ExecuteReader();
+
+			while(reader.Read()) {
+				Comment comment = new Comment() {
+					Content = reader.GetString("Content")
+				};
+
+				comments.Add(comment);
+			}
+
+			return comments;
 		}
 
+		/// <summary>
+		/// Get all ingredients for recipe
+		/// </summary>
+		/// <param name="id">Id of recipe</param>
+		/// <returns>List of all ingredients</returns>
+		public List<Ingredient> GetAllIngredientsForRecipe(int id) {
+			List<Ingredient> ingredients = new List<Ingredient>();
+			ConnectionConfig connCof = new ConnectionConfig();
+			MySqlConnection conn = connCof.GetMySqlConnection();
+			MySqlCommand command = new MySqlCommand();
+
+			command.Connection = conn;
+			command.CommandText = "select i.IngredientName, i.Kcal from RecipeIngredients ri" +
+				"left join Ingredients i on i.Id = ri.IngredientId where ri.RecipeId = @id";
+
+			command.Parameters.AddWithValue("@id", id);
+			MySqlDataReader reader = command.ExecuteReader();
+
+			while(reader.Read()) {
+				Ingredient ingredient = new Ingredient() {
+					IngredientName = reader.GetString("IngredientName"),
+					Kcal = reader.GetInt32("Kcal")
+				};
+
+				ingredients.Add(ingredient);
+			}
+
+			return ingredients;
+		}
+
+		/// <summary>
+		/// gets all recipes in groups of three
+		/// </summary>
+		/// <returns>dictionary which contains number of row and list of three recipes for each row</returns>
 		public Dictionary<int, List<Recipe>> GetAllRecipes() {
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Get recipe by id
+		/// </summary>
+		/// <param name="id">Id of the recipe</param>
+		/// <returns></returns>
 		public Recipe GetRecipeById(int id) {
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Get all recipes by category
+		/// </summary>
+		/// <param name="catName">Name of the category</param>
+		/// <returns></returns>
 		public List<Recipe> GetRecipesByCategory(string catName) {
 			throw new NotImplementedException();
 		}
 
-		public void UpdateRecipe(int id) {
-			throw new NotImplementedException();
+		/// <summary>
+		/// Updates a recipe
+		/// </summary>
+		/// <param name="id">Id of the recipe</param>
+		/// <param name="recipe">New data for the recipe</param>
+		public void UpdateRecipe(int id, EditRecipeBindingModel recipe) {
+			//TODO add properties of EditRecipeBindingModel class
 		}
 	}
 }
