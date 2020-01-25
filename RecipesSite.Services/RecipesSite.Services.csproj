@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RecipesSite.CommonModels\RecipesSite.CommonModels.csproj" />
     <ProjectReference Include="..\RecipesSite.Models\RecipesSite.Models.csproj" />
     <ProjectReference Include="..\RecipesSite\RecipesSite.csproj" />
   </ItemGroup>
