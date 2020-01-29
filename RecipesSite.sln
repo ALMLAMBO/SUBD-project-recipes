@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipesSite", "RecipesSite\RecipesSite.csproj", "{99739873-32B6-48EE-B84D-11BD9E21711D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipesSite.API", "RecipesSite.API\RecipesSite.API.csproj", "{AFA52844-ED06-4E02-8EA2-147C4BDE913C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipesSite.Common", "RecipesSite.Common\RecipesSite.Common.csproj", "{76A3C983-B9EF-495E-998B-930C630A9B93}"
@@ -15,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipesSite.Services", "Rec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipesSite.Models", "RecipesSite.Models\RecipesSite.Models.csproj", "{7B71514E-41DC-4770-ADC7-AF310FD8598B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipesSite.App", "RecipesSite.App\RecipesSite.App.csproj", "{5AFAD92F-06F6-4CA8-B8F4-7502E1421605}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipesSite.App", "RecipesSite.App\RecipesSite.App.csproj", "{5AFAD92F-06F6-4CA8-B8F4-7502E1421605}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{99739873-32B6-48EE-B84D-11BD9E21711D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99739873-32B6-48EE-B84D-11BD9E21711D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99739873-32B6-48EE-B84D-11BD9E21711D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99739873-32B6-48EE-B84D-11BD9E21711D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AFA52844-ED06-4E02-8EA2-147C4BDE913C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AFA52844-ED06-4E02-8EA2-147C4BDE913C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFA52844-ED06-4E02-8EA2-147C4BDE913C}.Release|Any CPU.ActiveCfg = Release|Any CPU
