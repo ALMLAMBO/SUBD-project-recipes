@@ -9,10 +9,10 @@ using RecipesSite.Services;
 namespace RecipesSite.API.Controllers
 {
 	[ApiController]
-
+	[Route("api/ingredients/")]
 	class IngredientController : ControllerBase
 	{
-		[HttpGet]
+		[HttpGet("get-ingredients")]
 		public List<RecipeIngredient> GetIng(int id) {
 			var connectionConfig = new ConnectionConfig();
 			MySqlConnection mySqlConnection = connectionConfig.GetMySqlConnection();
@@ -36,6 +36,29 @@ namespace RecipesSite.API.Controllers
 				ingList.Add(ingredient);
 			}
 			return ingList;
+		}
+
+		[HttpGet("all-ingredients")]
+		public List<RecipeIngredient> GetRecipeIngredients() {
+			List<RecipeIngredient> ingredients = new List<RecipeIngredient>();
+
+			ConnectionConfig config = new ConnectionConfig();
+			MySqlConnection connection = config.GetMySqlConnection();
+			MySqlCommand command = new MySqlCommand(
+				"select * from Ingredients", connection);
+
+			MySqlDataReader reader = command.ExecuteReader();
+			while(reader.Read()) {
+				RecipeIngredient ingredient = new RecipeIngredient() {
+					Id = reader.GetInt32("Id"),
+					IngredientName = reader.GetString("IngredientName"),
+					Kcal = reader.GetInt32("Kcal")
+				};
+
+				ingredients.Add(ingredient);
+			}
+
+			return ingredients;
 		}
 	}
 }
