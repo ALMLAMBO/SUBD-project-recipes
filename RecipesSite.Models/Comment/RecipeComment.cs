@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace RecipesSite.Models.Comment {
-	public class Comment {
+	public class RecipeComment {
 		[Required]
 		public int Id { get; set; }
 
