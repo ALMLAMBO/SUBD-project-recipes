@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using RecipesSite.Models.Ingredient;
+using RecipesSite.Models.Comment;
 
 namespace RecipesSite.Models.Recipe {
 	public class Recipe {
@@ -16,5 +18,9 @@ namespace RecipesSite.Models.Recipe {
 
 		[Required]
 		public string RecipeImageLink { get; set; }
+
+		public List<RecipeIngredient> RecipeIngrediets { get; set; }
+
+		public List<RecipeComment> RecipeComments { get; set; }
 	}
 }
