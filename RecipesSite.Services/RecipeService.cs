@@ -9,7 +9,7 @@ using RecipesSite.Services.Interfaces;
 using RecipesSite.CommonModels.BindingModels.Recipes;
 
 namespace RecipesSite.Services {
-	public class RecipeService : IRecipeInterface {
+	public class RecipeService : IRecipeService {
 
 		/// <summary>
 		/// Adds a recipe to the database
