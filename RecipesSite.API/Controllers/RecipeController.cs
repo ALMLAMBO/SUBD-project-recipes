@@ -58,11 +58,11 @@ namespace RecipesSite.API.Controllers
 		}
 
 		[HttpGet]
-		public List<Ingredient> GetList(int id) {
+		public List<RecipeIngredient> GetList(int id) {
 			var connectionConfig = new ConnectionConfig();
 			MySqlConnection mySqlConnection = connectionConfig.GetMySqlConnection();
 
-			var ingList = new List<Ingredient>();
+			var ingList = new List<RecipeIngredient>();
 			MySqlCommand mySqlCommand = new MySqlCommand();
 			mySqlCommand.Connection = mySqlConnection;
 			mySqlCommand.CommandText = "select i.IngredientName, i.Kcal from RecipeIngredients ri" +
@@ -71,7 +71,7 @@ namespace RecipesSite.API.Controllers
 			MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader();
 
 			while(mySqlDataReader.Read()) {
-				Ingredient ingredient = new Ingredient() {
+				RecipeIngredient ingredient = new RecipeIngredient() {
 					IngredientName = mySqlDataReader.GetString("IngredientName"),
 					Kcal = mySqlDataReader.GetInt32("Kcal")
 				};
