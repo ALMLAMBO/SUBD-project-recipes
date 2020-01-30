@@ -1,4 +1,5 @@
 ﻿using BlazorInputFile;
+using RecipesSite.Models.Ingredient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,5 +15,10 @@ namespace RecipesSite.CommonModels.BindingModels.Recipes {
 
 		[Required]
 		public IFileListEntry RecipeImage { get; set; }
+
+		[Required]
+		public string WayOfCooking { get; set; }
+
+		public List<RecipeIngredient> Ingredients { get; set; }
 	}
 }
