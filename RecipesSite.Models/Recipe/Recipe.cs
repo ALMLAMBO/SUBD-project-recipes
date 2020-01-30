@@ -19,6 +19,8 @@ namespace RecipesSite.Models.Recipe {
 		[Required]
 		public string RecipeImageLink { get; set; }
 
+		public string WayOfCooking { get; set; }
+
 		public List<RecipeIngredient> RecipeIngrediets { get; set; }
 
 		public List<RecipeComment> RecipeComments { get; set; }
