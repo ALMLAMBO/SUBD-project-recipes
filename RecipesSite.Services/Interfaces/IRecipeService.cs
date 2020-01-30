@@ -7,7 +7,7 @@ using RecipesSite.Models.Ingredient;
 using RecipesSite.CommonModels.BindingModels.Recipes;
 
 namespace RecipesSite.Services.Interfaces {
-	public interface IRecipeInterface {
+	public interface IRecipeService {
 		public void AddRecipe(AddRecipeBindingModel recipe);
 
 		public Dictionary<int, List<Recipe>> GetAllRecipes();
@@ -20,8 +20,8 @@ namespace RecipesSite.Services.Interfaces {
 
 		public List<Recipe> GetRecipesByCategory(string catName);
 
-		public List<Comment> GetAllCommentsForRecipe(int id);
+		public List<RecipeComment> GetAllCommentsForRecipe(int id);
 
-		public List<Ingredient> GetAllIngredientsForRecipe(int id);
+		public List<RecipeIngredient> GetAllIngredientsForRecipe(int id);
 	}
 }
