@@ -58,8 +58,8 @@ namespace RecipesSite.Services {
 		/// </summary>
 		/// <param name="id">Id of the recipe</param>
 		/// <returns>List of all comments</returns>
-		public List<Comment> GetAllCommentsForRecipe(int id) {
-			List<Comment> comments = new List<Comment>();
+		public List<RecipeComment> GetAllCommentsForRecipe(int id) {
+			List<RecipeComment> comments = new List<RecipeComment>();
 
 			ConnectionConfig connCof = new ConnectionConfig();
 			MySqlConnection conn = connCof.GetMySqlConnection();
@@ -72,7 +72,7 @@ namespace RecipesSite.Services {
 			MySqlDataReader reader = command.ExecuteReader();
 
 			while(reader.Read()) {
-				Comment comment = new Comment() {
+				RecipeComment comment = new RecipeComment() {
 					Content = reader.GetString("Content")
 				};
 
@@ -87,8 +87,8 @@ namespace RecipesSite.Services {
 		/// </summary>
 		/// <param name="id">Id of recipe</param>
 		/// <returns>List of all ingredients</returns>
-		public List<Ingredient> GetAllIngredientsForRecipe(int id) {
-			List<Ingredient> ingredients = new List<Ingredient>();
+		public List<RecipeIngredient> GetAllIngredientsForRecipe(int id) {
+			List<RecipeIngredient> ingredients = new List<RecipeIngredient>();
 			ConnectionConfig connCof = new ConnectionConfig();
 			MySqlConnection conn = connCof.GetMySqlConnection();
 			MySqlCommand command = new MySqlCommand();
@@ -101,7 +101,7 @@ namespace RecipesSite.Services {
 			MySqlDataReader reader = command.ExecuteReader();
 
 			while(reader.Read()) {
-				Ingredient ingredient = new Ingredient() {
+				RecipeIngredient ingredient = new RecipeIngredient() {
 					IngredientName = reader.GetString("IngredientName"),
 					Kcal = reader.GetInt32("Kcal")
 				};
