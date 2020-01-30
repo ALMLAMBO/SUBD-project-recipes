@@ -200,7 +200,57 @@ namespace RecipesSite.Services {
 		/// </summary>
 		/// <returns>dictionary which contains number of row and list of three recipes for each row</returns>
 		public Dictionary<int, List<Recipe>> GetAllRecipes() {
-			throw new NotImplementedException();
+			Dictionary<int, List<Recipe>> recipes = 
+				new Dictionary<int, List<Recipe>>();
+
+			ConnectionConfig connCof = new ConnectionConfig();
+			MySqlConnection conn = connCof.GetMySqlConnection();
+			MySqlCommand command = new MySqlCommand();
+
+			command.Connection = conn;
+			command.CommandText = "select r.Id, r.RecipeName, r.RecipeCategory, " +
+				"r.WayOfCooking, ri.IngredientId from RecipeIngredients ri " +
+				"left join Recipes r on ri.RecipeId = r.Id";
+
+			MySqlDataReader reader = command.ExecuteReader();
+			List<Recipe> list = new List<Recipe>();
+			int line = 0;
+
+			while(reader.Read()) {
+				Recipe recipe = new Recipe() {
+					Id = reader.GetInt32("Id"),
+					RecipeName = reader.GetString("RecipeName"),
+					RecipeCategory = reader.GetString("RecipeCategory"),
+					WayOfCooking = reader.GetString("WayOfCooking"),
+					RecipeIngrediets = new List<RecipeIngredient>()
+				};
+
+				command.CommandText = "select i.IngredientName, i.Kcal" +
+					"from RecipeIngredients ri " +
+					"left join Ingredients i on ri.IngredientId = i.Id" +
+					"where ri.RecipeId = @id";
+
+				command.Parameters.AddWithValue("@id", recipe.Id);
+				MySqlDataReader r = command.ExecuteReader();
+
+				while(r.Read()) {
+					RecipeIngredient ingredient = new RecipeIngredient() {
+						IngredientName = r.GetString("IngredientName"),
+						Kcal = r.GetInt32("Kcal")
+					};
+
+					recipe.RecipeIngrediets.Add(ingredient);
+				}
+
+				list.Add(recipe);
+
+				if(list.Count == 3) {
+					recipes.Add(line, list);
+					line++;
+				}
+			}
+
+			return recipes;
 		}
 
 		/// <summary>
@@ -218,7 +268,31 @@ namespace RecipesSite.Services {
 		/// <param name="catName">Name of the category</param>
 		/// <returns></returns>
 		public List<Recipe> GetRecipesByCategory(string catName) {
-			throw new NotImplementedException();
+			List<Recipe> recipes = new List<Recipe>();
+			ConnectionConfig connCof = new ConnectionConfig();
+			MySqlConnection conn = connCof.GetMySqlConnection();
+			MySqlCommand command = new MySqlCommand();
+
+			command.Connection = conn;
+			command.CommandText = "select * from Recipes r " +
+				"where r.RecipeCategory = @category";
+
+			command.Parameters.AddWithValue("@category", catName);
+			MySqlDataReader reader = command.ExecuteReader();
+			while(reader.Read()) {
+				Recipe recipe = new Recipe() {
+					Id = reader.GetInt32("Id"),
+					RecipeName = reader.GetString("RecipeName"),
+					RecipeCategory = reader.GetString("RecipeCategory"),
+					WayOfCooking = reader.GetString("WayOfCooking")
+				};
+
+				recipe.RecipeIngrediets = GetAllIngredientsForRecipe(recipe.Id);
+
+				recipes.Add(recipe);
+			}
+
+			return recipes;
 		}
 
 		/// <summary>
