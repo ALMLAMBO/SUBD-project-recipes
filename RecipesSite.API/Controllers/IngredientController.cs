@@ -13,11 +13,11 @@ namespace RecipesSite.API.Controllers
 	class IngredientController : ControllerBase
 	{
 		[HttpGet]
-		public List<Ingredient> GetIng(int id) {
+		public List<RecipeIngredient> GetIng(int id) {
 			var connectionConfig = new ConnectionConfig();
 			MySqlConnection mySqlConnection = connectionConfig.GetMySqlConnection();
 
-			var ingList = new List<Ingredient>();
+			var ingList = new List<RecipeIngredient>();
 			MySqlCommand mySqlCommand = new MySqlCommand();
 			mySqlCommand.Connection = mySqlConnection;
 			mySqlCommand.CommandText = "select i.IngredientName, i.Kcal from RecipeIngredients ri" +
@@ -27,7 +27,7 @@ namespace RecipesSite.API.Controllers
 
 			while (mySqlDataReader.Read())
 			{
-				Ingredient ingredient = new Ingredient()
+				RecipeIngredient ingredient = new RecipeIngredient()
 				{
 					IngredientName = mySqlDataReader.GetString("IngredientName"),
 					Kcal = mySqlDataReader.GetInt32("Kcal")
